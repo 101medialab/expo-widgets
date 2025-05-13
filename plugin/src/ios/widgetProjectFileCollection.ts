@@ -14,6 +14,7 @@ export class WidgetProjectFileCollection {
       xcassets: [],
       intentdefinition: [],
       strings: [],
+      xcstrings: [], // Add this line to support .xcstrings filess
     };
   }
 
