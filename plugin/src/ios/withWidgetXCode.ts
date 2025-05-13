@@ -161,11 +161,16 @@ const addFilesToWidgetProject = (
 
     const shouldAddResourcesBuildPhase = () => {
       const googleServicePlistPath = path.join(iosProjectPath, 'GoogleService-Info.plist');
-      return fs.existsSync(googleServicePlistPath) || filesByType.xcassets?.length > 0 || filesByType.strings?.length > 0;
+      return fs.existsSync(googleServicePlistPath) || filesByType.xcassets?.length > 0 || filesByType.strings?.length > 0 || filesByType.xcstrings?.length > 0;
     }
 
     const getResourceFiles = () => {
-      const resources = [...(filesByType.xcassets || []), ...(filesByType.strings || [])];
+      const resources = [
+        ...(filesByType.xcassets || []), 
+        ...(filesByType.strings || []),
+        ...(filesByType.xcstrings || []) // Add this line to include .xcstrings files  
+      ];
+
       const googleServicePlistPath = path.join(iosProjectPath, 'GoogleService-Info.plist');
       
       if (fs.existsSync(googleServicePlistPath)) {
@@ -242,6 +247,17 @@ const addFilesToWidgetProject = (
           target: targetUuid,
         })
       }
+    }
+
+    // Add this block to handle .xcstrings files  
+    if (filesByType.xcstrings) {  
+      for (const xcstringsFile of filesByType.xcstrings) {  
+        Logging.logger.debug(`Adding xcstrings file:: ${xcstringsFile} to target ${targetUuid}`)  
+
+        project.addResourceFile(xcstringsFile, {  
+          target: targetUuid,  
+        })  
+      }  
     }
 
     for (const d of directoriesToIterate) {
