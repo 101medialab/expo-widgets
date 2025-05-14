@@ -97,6 +97,9 @@ Give my [other expo module a try](https://github.com/gitn00b1337/expo-native-fon
 
 If you need widgets designed & developed, reach out for more details. 
 
+## Remark
+As the `prepare: expo-module prepare` script is removed from the package.json. Remember to run `expo-module prepare` in local and push to git mannually. Ref: https://github.com/101medialab/expo-widgets/pull/5
+
 ## Thanks!
 
 A huge thanks to [gashimo](https://github.com/gaishimo/eas-widget-example) for a great baseline to start from. 
