@@ -5,7 +5,10 @@ const config_plugins_1 = require("expo/config-plugins");
 const logger_1 = require("../utils/logger");
 const withEntitlements_1 = require("./xcode/withEntitlements");
 const APP_GROUP_KEY = "com.apple.security.application-groups";
-const getAppGroupEntitlement = (config) => {
+const getAppGroupEntitlement = (config, options) => {
+    if (options.xcode?.appGroupId) {
+        return options.xcode?.appGroupId;
+    }
     return `group.${config?.ios?.bundleIdentifier || ""}.expowidgets`;
 };
 exports.getAppGroupEntitlement = getAppGroupEntitlement;
@@ -15,7 +18,7 @@ const withAppGroupPermissions = (config, options) => {
             newConfig.modResults[APP_GROUP_KEY] = [];
         }
         const modResultsArray = newConfig.modResults[APP_GROUP_KEY];
-        const entitlement = (0, exports.getAppGroupEntitlement)(config);
+        const entitlement = (0, exports.getAppGroupEntitlement)(config, options);
         if (modResultsArray.indexOf(entitlement) !== -1) {
             logger_1.Logging.logger.debug(`Adding entitlement ${entitlement} to config`);
             return newConfig;
