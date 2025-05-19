@@ -10,14 +10,16 @@ export const withAppExtensions: ConfigPlugin<WithExpoIOSWidgetsProps> = (config,
     const bundleIdentifier = getBundleIdentifier(config, options)
     const entitlement = getAppGroupEntitlement(config, options)
     const appGroupEntitlements = (config.ios?.entitlements && config.ios.entitlements['com.apple.security.application-groups']) || []
+
+    const uniqueEntitlements = new Set([...appGroupEntitlements, entitlement])  
+
   
     config.ios = {
       ...config.ios,
       entitlements: {
         ...(config.ios?.entitlements || {}),
         'com.apple.security.application-groups': [
-          ...appGroupEntitlements,
-          entitlement,
+          ...uniqueEntitlements
         ],
         'aps-environment': getPushNotificationsMode(options)
       }

@@ -10,13 +10,13 @@ const withAppExtensions = (config, options) => {
     const bundleIdentifier = (0, withWidgetXCode_1.getBundleIdentifier)(config, options);
     const entitlement = (0, withAppGroupPermissions_1.getAppGroupEntitlement)(config, options);
     const appGroupEntitlements = (config.ios?.entitlements && config.ios.entitlements['com.apple.security.application-groups']) || [];
+    const uniqueEntitlements = new Set([...appGroupEntitlements, entitlement]);
     config.ios = {
         ...config.ios,
         entitlements: {
             ...(config.ios?.entitlements || {}),
             'com.apple.security.application-groups': [
-                ...appGroupEntitlements,
-                entitlement,
+                ...uniqueEntitlements
             ],
             'aps-environment': (0, withEntitlements_1.getPushNotificationsMode)(options)
         }
