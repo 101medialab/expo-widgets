@@ -8,7 +8,7 @@ const target_1 = require("./xcode/target");
 const withAppExtensions = (config, options) => {
     const targetName = (0, target_1.getTargetName)(config, options);
     const bundleIdentifier = (0, withWidgetXCode_1.getBundleIdentifier)(config, options);
-    const entitlement = (0, withAppGroupPermissions_1.getAppGroupEntitlement)(config);
+    const entitlement = (0, withAppGroupPermissions_1.getAppGroupEntitlement)(config, options);
     const appGroupEntitlements = (config.ios?.entitlements && config.ios.entitlements['com.apple.security.application-groups']) || [];
     config.ios = {
         ...config.ios,
