@@ -6,10 +6,14 @@ import { getPushNotificationsMode } from "./xcode/withEntitlements";
 
 const APP_GROUP_KEY = "com.apple.security.application-groups"
 
-export const getAppGroupEntitlement = (config: ExpoConfig) => {
-    return `group.${config?.ios?.bundleIdentifier || ""}.expowidgets`
-  }
-  
+export const getAppGroupEntitlement = (config: ExpoConfig, options: WithExpoIOSWidgetsProps) => {  
+  if (options.xcode?.appGroupId) {  
+      return options.xcode?.appGroupId  
+  }  
+    
+  return `group.${config?.ios?.bundleIdentifier || ""}.expowidgets`  
+}
+
 export const withAppGroupPermissions: ConfigPlugin<WithExpoIOSWidgetsProps> = (
     config,
     options
@@ -20,7 +24,7 @@ export const withAppGroupPermissions: ConfigPlugin<WithExpoIOSWidgetsProps> = (
       }
   
       const modResultsArray = (newConfig.modResults[APP_GROUP_KEY] as Array<any>);
-      const entitlement = getAppGroupEntitlement(config);
+      const entitlement = getAppGroupEntitlement(config, options);
   
       if (modResultsArray.indexOf(entitlement) !== -1) {
         Logging.logger.debug(`Adding entitlement ${entitlement} to config`)
