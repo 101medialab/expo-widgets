@@ -8,7 +8,7 @@ import { getTargetName } from "./xcode/target"
 export const withAppExtensions: ConfigPlugin<WithExpoIOSWidgetsProps> = (config, options) => {
     const targetName = getTargetName(config, options)
     const bundleIdentifier = getBundleIdentifier(config, options)
-    const entitlement = getAppGroupEntitlement(config)
+    const entitlement = getAppGroupEntitlement(config, options)
     const appGroupEntitlements = (config.ios?.entitlements && config.ios.entitlements['com.apple.security.application-groups']) || []
   
     config.ios = {
