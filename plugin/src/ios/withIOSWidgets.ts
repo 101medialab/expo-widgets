@@ -19,6 +19,7 @@ const defaultOptions = (): WithExpoIOSWidgetsProps => {
         widgetExtPlugins: [],
         xcode: {
             appExtAPI: false,
+            useReactNative: true,
         }
     }
 }
@@ -50,6 +51,7 @@ export const withIOSWidgets: ConfigPlugin<WithExpoIOSWidgetsProps> = (config, op
             entitlements: options.xcode?.entitlements || xcode?.entitlements,
             configOverrides: options.xcode?.configOverrides ||  xcode?.configOverrides,
             appExtAPI: options.xcode?.appExtAPI || xcode?.appExtAPI,
+            useReactNative: options.xcode?.useReactNative !== undefined ?              options.xcode?.useReactNative : xcode?.useReactNative,  
         }
     }
 
