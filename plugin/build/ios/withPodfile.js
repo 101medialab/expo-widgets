@@ -51,7 +51,6 @@ const withPodfile = (config, options) => {
     let podInstaller = `  
 target '${targetName}' do  
   use_expo_modules!  
-  config = use_native_modules!  
   
   use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']  
   use_frameworks! :linkage => ENV['USE_FRAMEWORKS'].to_sym if ENV['USE_FRAMEWORKS']  
@@ -59,6 +58,9 @@ target '${targetName}' do
     // Only include React Native if the option is enabled  
     if (useReactNative) {
         podInstaller += `  
+
+  config = use_native_modules!  
+
   use_react_native!(  
     :path => config[:reactNativePath],  
     :hermes_enabled => podfile_properties['expo.jsEngine'] == nil || podfile_properties['expo.jsEngine'] == 'hermes',  
