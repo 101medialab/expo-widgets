@@ -20,6 +20,7 @@ const defaultOptions = () => {
         widgetExtPlugins: [],
         xcode: {
             appExtAPI: false,
+            useReactNative: true,
         }
     };
 };
@@ -40,6 +41,7 @@ const withIOSWidgets = (config, options) => {
             entitlements: options.xcode?.entitlements || xcode?.entitlements,
             configOverrides: options.xcode?.configOverrides || xcode?.configOverrides,
             appExtAPI: options.xcode?.appExtAPI || xcode?.appExtAPI,
+            useReactNative: options.xcode?.useReactNative !== undefined ? options.xcode?.useReactNative : xcode?.useReactNative,
         }
     };
     config = (0, withConfig_1.withConfig)(config, defaultedOptions);

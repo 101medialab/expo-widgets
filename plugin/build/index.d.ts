@@ -81,6 +81,10 @@ export type WithExpoIOSWidgetsProps = {
          * Controls the podfile APP_EXTENSION_API_ONLY setting.
          */
         appExtAPI?: boolean;
+        /**
+         * Controls the podfile include react native libraries setting.
+         */
+        useReactNative?: boolean;
     };
     /**
      * A collection of relative file paths to files your module file needs (like shared models)
