@@ -46,13 +46,13 @@ export const withIOSWidgets: ConfigPlugin<WithExpoIOSWidgetsProps> = (config, op
         moduleDependencies: options.moduleDependencies || moduleDependencies,
         mode: options.mode || mode,
         widgetExtPlugins: options.widgetExtPlugins || widgetExtPlugins,
+        excludedPackages: options.excludedPackages || excludedPackages,
         xcode: {
             widgetBundleIdentifier: options.xcode?.widgetBundleIdentifier || xcode?.widgetBundleIdentifier,
             appGroupId: options.xcode?.appGroupId || xcode?.appGroupId,
             entitlements: options.xcode?.entitlements || xcode?.entitlements,
             configOverrides: options.xcode?.configOverrides ||  xcode?.configOverrides,
             appExtAPI: options.xcode?.appExtAPI || xcode?.appExtAPI,
-            excludedPackages: options.excludedPackages || excludedPackages,
         }
     }
 
