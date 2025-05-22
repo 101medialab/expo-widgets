@@ -43,11 +43,15 @@ const withPodfile = (config, options) => {
     const targetName = `${(0, target_1.getTargetName)(config, options)}`;
     const AppExtAPIOnly = options.xcode?.appExtAPI ?? false;
     const AppExtValue = AppExtAPIOnly ? 'YES' : 'No';
+    const excludedPackages = options.excludedPackages;
     const podFilePath = path.join(config.modRequest.platformProjectRoot, "Podfile");
     let podFileContent = fs.readFileSync(podFilePath).toString();
+    const useExpoModules = excludedPackages && excludedPackages.length > 0
+        ? `exclude = ["${excludedPackages.join('", "')}"]\n  use_expo_modules!(exclude: exclude)`
+        : "use_expo_modules!";
     const podInstaller = `
 target '${targetName}' do
-  use_expo_modules!
+  ${useExpoModules}
   config = use_native_modules!
 
   use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']

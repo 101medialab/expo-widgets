@@ -20,11 +20,12 @@ const defaultOptions = () => {
         widgetExtPlugins: [],
         xcode: {
             appExtAPI: false,
-        }
+        },
+        excludedPackages: [],
     };
 };
 const withIOSWidgets = (config, options) => {
-    const { src, deploymentTarget, useLiveActivities, frequentUpdates, moduleDependencies, mode, widgetExtPlugins, xcode, } = defaultOptions();
+    const { src, deploymentTarget, useLiveActivities, frequentUpdates, moduleDependencies, mode, widgetExtPlugins, xcode, excludedPackages, } = defaultOptions();
     const defaultedOptions = {
         src: options.src || src,
         deploymentTarget: options.deploymentTarget || deploymentTarget,
@@ -34,6 +35,7 @@ const withIOSWidgets = (config, options) => {
         moduleDependencies: options.moduleDependencies || moduleDependencies,
         mode: options.mode || mode,
         widgetExtPlugins: options.widgetExtPlugins || widgetExtPlugins,
+        excludedPackages: options.excludedPackages || excludedPackages,
         xcode: {
             widgetBundleIdentifier: options.xcode?.widgetBundleIdentifier || xcode?.widgetBundleIdentifier,
             appGroupId: options.xcode?.appGroupId || xcode?.appGroupId,

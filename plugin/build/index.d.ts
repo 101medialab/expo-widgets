@@ -90,6 +90,10 @@ export type WithExpoIOSWidgetsProps = {
      * Plugins to run after the widget extension is created
      */
     widgetExtPlugins: ConfigPlugin<any>[];
+    /**
+     * Optional list of packages to exclude from autolinking in the widget extension target.
+     */
+    excludedPackages?: string[];
 };
 export type WithExpoWidgetsProps = {
     android?: WithExpoAndroidWidgetsProps;

@@ -78,7 +78,7 @@ export type WithExpoIOSWidgetsProps = {
          */
         entitlements?: IOSEntitlements;
         /**
-         * Within xcode there is a configuration block. You can customise the config 
+         * Within xcode there is a configuration block. You can customise the config
          * here if you have specific needs
          */
         configOverrides?: { [ attributeName: string ]: string };
@@ -95,6 +95,10 @@ export type WithExpoIOSWidgetsProps = {
      * Plugins to run after the widget extension is created
      */
     widgetExtPlugins: ConfigPlugin<any>[];
+    /**
+     * Optional list of packages to exclude from autolinking in the widget extension target.
+     */
+    excludedPackages?: string[];
 }
 
 export type WithExpoWidgetsProps = {
