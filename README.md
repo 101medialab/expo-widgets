@@ -38,7 +38,8 @@ See the example project for more clarity. You can omit the android or ios folder
                     "resourceName": "@xml/my_widget_info"
                 }
             ],
-            distPlaceholder: "optional.placeholder"
+            distPlaceholder: "optional.placeholder",
+            excludedPackages: ["lottie-react-native"]
         }                      
     }
 ],
@@ -51,7 +52,7 @@ See the example project for more clarity. You can omit the android or ios folder
 7. If you want to use custom fonts in your iOS widget, use my expo-native-fonts package; see the example project for usage. Android widgets work well with resource folders and don't require additional dependencies.
 8. For android, set resourceName to your file name in /res/xml/***_info.xml
 9. For android apps which require multiple distributions with different package names you can use distPlaceholder which will replace all instances of the provided placeholder in widget source files with your app.config.(json/ts/js). So if your source files include "package com.company.app" and "import com.company.app" and you have two distributions (com.company.app for prod and dev.company.app for dev) then setting distPlaceholder to com.company.app will replace all package and import references to the correct distribution each build. You can omit this field if it's not relevant to you. iOS requires no configuration for multiple distribution apps.
-
+10. If you need to exclude certain packages from the auto-linking process (e.g. if they cause build conflicts or are not needed by your widgets), you can use the `excludedPackages` option. This takes an array of strings, where each string is a package name to be excluded. For example, `["lottie-react-native", "@react-native-async-storage/async-storage"]`. This is useful in monorepos or projects with complex dependency graphs where certain packages included in the main app should not be linked into the widget's context.
 ## Overriding xcode options
 
 You can override xcode options in app.json (all props are optional):
