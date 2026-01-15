@@ -46,8 +46,7 @@ target '${targetName}' do
 end
 `;
 
-  const postInstall = `
-  post_install do |installer|
+  const postInstallContent = `
     installer.target_installation_results.pod_target_installation_results
       .each do |pod_name, target_installation_result|
       target_installation_result.resource_bundle_targets.each do |resource_bundle_target|
@@ -63,22 +62,28 @@ end
         config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
       end
     end
+`;
+
+  const postInstallHook = `
+  post_install do |installer|
+${postInstallContent}
   end
 `;
 
-  const mergedPodfile = mergeContents({
-    tag: "expo-widgets-post-install",
-    src: podFileContent,
-    newSrc: postInstall,
-    anchor: /post_install do \|installer\|/,
-    offset: 0,
-    comment: "#",
-  });
+  const postInstallAnchor = /post_install do \|installer\|/;
 
-  if (!mergedPodfile.didMerge) {
-    podFileContent += `\n\n${postInstall}`;
-  } else {
+  if (podFileContent.match(postInstallAnchor)) {
+    const mergedPodfile = mergeContents({
+      tag: "expo-widgets-post-install",
+      src: podFileContent,
+      newSrc: postInstallContent,
+      anchor: postInstallAnchor,
+      offset: 1,
+      comment: "#",
+    });
     podFileContent = mergedPodfile.contents;
+  } else {
+    podFileContent += postInstallHook;
   }
 
   Logging.logger.debug("Updating podfile");
